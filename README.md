@@ -1,3 +1,10 @@
+**update**
+删除底部`name institute_name`部分
+
+处理`.aux`文件，生成`.bbl`文件，之后使用xelatex渲染bib
+```shell
+bibtex slide.aux
+```
 # SHU-Beamer-Theme
 
 模版主题预览：[SHU-Beamer-Theme](https://lanegong.github.io/file/slide.pdf)
