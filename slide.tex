@@ -1,7 +1,15 @@
 \documentclass{beamer}
 \usepackage{ctex, hyperref}
-\usepackage[T1]{fontenc}%使用8位编码的T1字体编码加载字体编码
+% \usepackage[T1]{fontenc}%使用8位编码的T1字体编码加载字体编码
 
+% 设置英文/数字字体为 Times New Roman
+\setmainfont{Times New Roman}
+
+% 设置中文字体为微软雅黑
+\setCJKmainfont{Microsoft YaHei} % 或简写为 \setCJKmainfont{微软雅黑}
+
+% 告诉 Beamer 使用衬线字体（Times New Roman）作为默认字体
+\usefonttheme{serif}
 % other packages
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
