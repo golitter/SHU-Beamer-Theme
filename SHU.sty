@@ -1,93 +1,150 @@
+% 进入 Beamer 的“<presentation>
 \mode<presentation>
 
+% 定义一个新的布尔开关（if-flag）\ifbeamer@secheader，初始值为 false。
+% 这通常用于主题选项，例如让用户选择是否在页眉显示章节信息。
+% 在这个文件中，它被定义了但并未被实际使用。
 \newif\ifbeamer@secheader
 \beamer@secheaderfalse
 
+% 声明一个名为 "secheader" 的主题选项。如果用户在 \usetheme[secheader]{SHU} 中使用它，
+% 就会执行 \beamer@secheadertrue，将上面的开关设置为 true。
+% 这行代码被注释掉了，意味着该主题选项当前不可用。
 %\DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
+
+% 处理在导言区传递给主题文件的所有选项。
+% 这是必须的步骤，以确保用户指定的选项（如上面被注释的 secheader）能够生效。
 \ProcessOptionsBeamer
 
+% --- 外部主题设置 ---
+% 使用 "smoothbars" 外部主题，并对其进行配置。
+% footline=authorinstitutetitle: 设置页脚样式，显示作者、机构和标题。
+% subsection=false: 不在顶部导航栏显示子小节。
 \useoutertheme[footline=authorinstitutetitle,subsection=false]{smoothbars}
-\makeatletter % [add curpage/total page at the bottom](http://tex.stackexchange.com/questions/100838/beamer-dresden-theme-miniframes-appeareance-and-frame-number-insertion)
+
+% --- 自定义页脚 ---
+% \makeatletter 和 \makeatother 是一对命令，允许我们在命令中使用 '@' 符号。
+% Beamer 的内部命令通常包含 '@'，普通文档中不能直接使用。
+\makeatletter
+% 定义一个命令 \frameofframes，用于在页码中显示分隔符，默认为 "/"。
 \newcommand{\frameofframes}{/}
+% 定义一个命令 \setframeofframes，允许用户自定义页码分隔符。
 \newcommand{\setframeofframes}[1]{\renewcommand{\frameofframes}{#1}}
-\setbeamertemplate{footline} 
+
+% 重新定义页脚模板。这是对 smoothbars 主题默认页脚的覆盖。
+\setbeamertemplate{footline}
   {%
+    % 在页脚顶部创建一条 1.5pt 高的彩色分隔线。
     \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
     \end{beamercolorbox}
+    % --- 原始的作者和机构行被注释掉了 ---
     % \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
     %   leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}%
     %   \leavevmode{\usebeamerfont{author in head/foot}\insertshortauthor}%
     %   \hfill%
     %   {\usebeamerfont{institute in head/foot}\usebeamercolor[fg]{institute in head/foot}\insertshortinstitute}%
     % \end{beamercolorbox}%
+    % --- 新的页脚内容 ---
+    % 创建一个高度为 2.5ex，深度为 1.125ex 的区域，用于显示标题和页码。
     \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
       leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+      % 在左侧显示短标题（\insertshorttitle）。
       {\usebeamerfont{title in head/foot}\insertshorttitle}%
+      % \hfill 是一个弹性间距，将内容推到两侧。
       \hfill%
+      % 在右侧显示页码，格式为 "当前页/总页数"。
       {\usebeamerfont{frame number}\usebeamercolor[fg]{frame number}\insertframenumber~\frameofframes~\inserttotalframenumber}
     \end{beamercolorbox}%
+    % 在页脚底部创建一条 1.5pt 高的彩色分隔线。
     \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
     \end{beamercolorbox}
   }
-\makeatother
+\makeatother % 结束 '@' 符号的使用。
 
+% --- 内部主题和字体主题设置 ---
+% 使用 "structurebold" 字体主题，将结构化元素（如标题、强调）的字体设为粗体。
 \usefonttheme{structurebold}
-%设置机构字号为10pt
-\setbeamerfont{institute}{size=\fontsize{10}{10}\selectfont}
-%作者字号
-\setbeamerfont{author}{parent=institute}%设置作者的字号和机构的字号相同
-%日期字号
-\setbeamerfont{date}{parent=institute}%设置日期的字号和机构的字号相同
-
+% 使用 "rounded" 内部主题，并启用阴影效果。这会影响块、列表项等元素的样式。
 \useinnertheme[shadow=true]{rounded}
 
-%\useoutertheme{default}
+% --- 字体大小微调 ---
+% 设置机构名称的字号为 10pt。
+\setbeamerfont{institute}{size=\fontsize{10}{10}\selectfont}
+% 设置作者的字号与机构字号相同。
+\setbeamerfont{author}{parent=institute}
+% 设置日期的字号与机构字号相同。
+\setbeamerfont{date}{parent=institute}
 
-
+% --- 颜色定义 ---
+% 定义一个名为 "SHU" 的颜色，RGB值为 (0, 66, 126)，即上海大学的主题蓝色。
 \xdefinecolor{SHU}{RGB}{0,66,126}  %RGB#00427e
+
+% --- 颜色主题设置 ---
+% 将页脚的背景色设置为 SHU 蓝。
 \setbeamercolor{footline}{bg=SHU}
+% 将帧标题的背景色设为 SHU 蓝，前景色（文字）设为白色。
 \setbeamercolor{frametitle}{bg=SHU,fg=white}
+% 设置标题的颜色（影响封面页标题等）。
 \setbeamercolor{title}{bg=SHU}
+% 设置帧标题的字体大小为 \large。
 \setbeamerfont{frametitle}{size=\large}
+% 注释掉：隐藏导航符号（通常在右下角）。
 %\setbeamertemplate{navigation symbols}{}
+% 设置参考文献条目为纯文本样式，而不是默认的图标。
 \setbeamertemplate{bibliography item}[text]
+% 设置图表标题带编号。
 \setbeamertemplate{caption}[numbered]
 
+% --- 顶部导航栏和侧边栏颜色 ---
+% 定义顶部导航栏（palette primary, secondary...）的颜色渐变。
+% 它们都基于结构色，并逐渐变暗。
 \setbeamercolor{palette primary}{use=structure,fg=white,bg=structure.fg}
 \setbeamercolor{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
 \setbeamercolor{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
 \setbeamercolor{palette quaternary}{fg=white,bg=structure.fg!50!black}
-%\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+% 设置标题类元素的颜色与主色调相同。
 \setbeamercolor{titlelike}{parent=palette primary}
 
-%% try
+% --- 其他元素颜色设置 ---
+% 设置普通块的标题背景为 SHU 蓝，文字为白色。
 \setbeamercolor{block title}{bg=SHU,fg=white}
+% 设置示例块的标题背景为白色，文字为 SHU 蓝。
 \setbeamercolor*{block title example}{use={normal text,example text},bg=white,fg=SHU}
+% 以下是一些对分隔线、侧边栏、列表项等元素颜色的微调。
 \setbeamercolor{fine separation line}{}
 \setbeamercolor{item projected}{fg=white}
 \setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
 \setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
 \setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
 \setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
-%\setbeamercolor{palette sidebar quaternary}{fg=white}
 \setbeamercolor{section in sidebar}{fg=brown}
 \setbeamercolor{section in sidebar shaded}{fg=grey}
 \setbeamercolor{separation line}{}
+% 将侧边栏的背景色设置为 SHU 蓝。
 \setbeamercolor{sidebar}{bg=SHU}
+% 确保侧边栏颜色与主色调一致。
 \setbeamercolor{sidebar}{parent=palette primary}
+% 将全局结构色（用于强调、项目符号等）设置为 SHU 蓝。
 \setbeamercolor{structure}{fg=SHU}
 \setbeamercolor{subsection in sidebar}{fg=brown}
 \setbeamercolor{subsection in sidebar shaded}{fg=grey}
+
+% --- 自动目录页设置 ---
+% \AtBeginSection{} 是一个钩子，它定义在每个 \section{} 开始时自动执行的代码。
+% 这里，它在每个新章节开始时，自动插入一个包含目录的帧。
+% 目录会高亮当前章节，并淡化其他章节。
 \AtBeginSection[]{
 	\begin{frame}
 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
 	\end{frame}
 }
+% 同理，在每个子小节开始时，也自动插入一个目录页。
+% 这个目录页会高亮当前章节和子小节。
 \AtBeginSubsection[]{
 	\begin{frame}
 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
 	\end{frame}
 }
 
-\mode
-<all>
+% 结束 presentation 模式，并将所有设置应用到所有模式。
+\mode<all>
