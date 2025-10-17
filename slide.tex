@@ -2,43 +2,21 @@
 \usepackage{ctex, hyperref}
 % \usepackage[T1]{fontenc}%使用8位编码的T1字体编码加载字体编码
 
-% 设置英文/数字字体为 Times New Roman
-\setmainfont{Times New Roman}
-
-% 设置中文字体为微软雅黑
-\setCJKmainfont{Microsoft YaHei} % 或简写为 \setCJKmainfont{微软雅黑}
-
-% 告诉 Beamer 使用衬线字体（Times New Roman）作为默认字体
-\usefonttheme{serif}
 % other packages
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
 
-\author{Lane Gong}
+% 导入部分样式
+\input{preamble.tex}
+
+\usepackage{SHU}
+
+\author{Lane Gong SHU}
 \title{SHU Beamer Theme}
 \subtitle{Latex PPT Template}
 \institute{上海大学计算机工程与科学学院}
 \date{\today}
-\usepackage{SHU}
 
-% defs
-\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
-\def\env#1{\texttt{\color{blue}\footnotesize #1}}
-\definecolor{deepblue}{rgb}{0,0,0.5}
-\definecolor{deepred}{rgb}{0.5,0,0}
-\definecolor{deepgreen}{rgb}{0,0.5,0}
-\definecolor{halfgray}{gray}{0.55}
-
-\lstset{
-    basicstyle=\ttfamily\small,
-    keywordstyle=\bfseries\color{deepblue},
-    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
-    stringstyle=\color{deepgreen},
-    numbers=left,
-    numberstyle=\small\color{halfgray},
-    rulesepcolor=\color{red!20!green!20!blue!20},
-    frame=shadowbox,
-}
 
 
 \begin{document}
@@ -46,7 +24,7 @@
 % *******************************************
 % COVER FRAME
 % ******************************************* 
-\kaishu
+
 \begin{frame}
     \begin{figure}[htpb]
         \begin{center}
@@ -66,7 +44,7 @@
 % *******************************************
 % SECTION
 % ******************************************* 
-\section{基本介绍}%章
+\section{SHU基本介绍}%章
 
 \begin{frame}{基本介绍}
     \begin{itemize}
@@ -302,7 +280,7 @@
 
 \begin{frame}[allowframebreaks]
     \bibliography{ref.bib}
-    \bibliographystyle{alpha}
+    \bibliographystyle{plain}
     % 如果参考文献太多的话，可以像下面这样调整字体：
     % \tiny\bibliographystyle{alpha}
 \end{frame}

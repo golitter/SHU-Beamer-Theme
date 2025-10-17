@@ -1,10 +1,16 @@
 **update**
+分离部分样式到`preamble.tex`
+英文：`Times New Roman`，中文：宋体
 删除底部`name institute_name`部分
 
 处理`.aux`文件，生成`.bbl`文件，之后使用xelatex渲染bib
 ```shell
 bibtex slide.aux
 ```
+
+pdf转ppt：[PDF to PPT](https://www.pdf.to/ppt/)
+
+
 # SHU-Beamer-Theme
 
 模版主题预览：[SHU-Beamer-Theme](https://lanegong.github.io/file/slide.pdf)
